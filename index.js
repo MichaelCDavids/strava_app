@@ -59,6 +59,16 @@ function errorHandler(err, req, res, next) {
 
 app.get('/', apiRoutes.index);
 
+var strava = require('strava-v3');
+strava.athlete.get({},function(err,payload,limits) {
+    if(!err) {
+        console.log(payload);
+    }
+    else {
+        console.log(err);
+    }
+});
+
 app.use(errorHandler);
 var PORT = process.env.PORT || 3011;
 app.listen(PORT, function () {
