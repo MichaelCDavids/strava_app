@@ -1,10 +1,10 @@
 
 https://stackoverflow.com/questions/52880434/problem-with-access-token-in-strava-api-v3-get-all-athlete-activities
 
-https://www.strava.com/oauth/authorize?client_id=29825&redirect_uri=http://localhost:3000/callback&response_type=code&scope=scope:view_private
+https://www.strava.com/oauth/authorize?client_id=29825&redirect_uri=http://localhost:3000/callback&response_type=code&scope=view_private
 
 
-https://www.strava.com/oauth/token?client_id=29825&client_secret=71c6f2dd03619e0d97320c5aad83a3e07d0f3c41&code=4bc8e015c365c4fc8687df314a3a865db375ef89&grant_type=authorization_code
+https://www.strava.com/oauth/token?client_id=29825&client_secret=71c6f2dd03619e0d97320c5aad83a3e07d0f3c41&code=9dfcf87f62efa1094d1621ba500fbf1cd726d3df&grant_type=authorization_code
 
 
 https://www.strava.com/api/v3/activities/{id}?include_all_efforts=" "Authorization: Bearer [[token]]
