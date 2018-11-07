@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,11 @@
     <title>Athlete</title>
 </head>
 <body>
-    <p>Hello {{data.athlete.firstname}} {{data.athlete.lastname}} </p>
+    <h3>Hello {{data.athlete.firstname}} {{data.athlete.lastname}} </h3>
     {{!-- <div>{{data.access_token}}</div> --}}
-    
+    <form action="/list_activities" method="get">
+        <button type="submit">View</button>
+    </form>
 </body>
+
 </html>

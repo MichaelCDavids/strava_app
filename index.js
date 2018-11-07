@@ -4,8 +4,6 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('express-flash');
-const strava = require('strava-v3');
-const axios = require('axios');
 const FactoryFunction = require('./services/strava-app-factory');
 const APIroutes = require('./routes/strava-app-routes');
 const app = express();
@@ -45,48 +43,18 @@ function errorHandler(err, req, res, next) {
         error: err
     });
 }
-
-
-const client_id = process.env.CLIENT_ID || 29825;
-const client_secret = '71c6f2dd03619e0d97320c5aad83a3e07d0f3c41';
-
-app.get('/', function (req, res) {
-    res.render('home');
-});
-
-app.get("/create_token", async function (req, res) {
-    let redirect_url = `http://localhost:3011/callback`
-    let url = `https://www.strava.com/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_url}&response_type=code&scope=view_private`;
-    // console.log(url);
-    res.redirect(url);
-});
-app.get('/callback', async function (req, res) {
-    let code = req.query.code;
-    let url = `https://www.strava.com/oauth/token?client_id=${client_id}&client_secret=${client_secret}&code=${code}&grant_type=authorization_code`;
-    // console.log(url);
-    let results = await axios.post(url);
-    // console.log(results.status);
-    // res.send(results.data);
-    res.render('athlete', {
-        data: await results.data
-    })
-});
-app.get('/stuff', function(req,res){
-    strava.athlete.listActivities({
-        "access_token": "773360a6d49961d35e6f8df4ac78293d397f5666"
-    }, function (err, payload, limits) {
-        if (!err) {
-            console.log(payload);
-            console.log('here');
-    
-        } else {
-            console.log(err);
-        }
-    })
-});
-
 app.use(errorHandler);
-var PORT = process.env.PORT || 3011;
+
+app.get('/', apiRoutes.indexGet);
+app.post("/", apiRoutes.indexPost);
+app.get('/profile', apiRoutes.profile);
+app.get('/list_activities', apiRoutes.listActivities);
+
+
+
+// app.get('/get',apiRoutes.get)
+
+const PORT = process.env.PORT || 3011;
 app.listen(PORT, function () {
     console.log('Strava App started and running listening on port:', PORT);
 });
