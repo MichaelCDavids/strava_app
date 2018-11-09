@@ -1,11 +1,8 @@
 const axios = require('axios');
 const client = require('../client/client');
-const strava = require('strava-v3');
-const moment = require('moment');
 
 module.exports = function (Instance) {
     async function indexGet(req, res) {
-        // Instance.print('Michael');
         res.render('index');
     };
     async function indexPost(req, res) {
@@ -25,55 +22,58 @@ module.exports = function (Instance) {
 
 
     async function listActivities(req, res) {
-        strava.athlete.listActivities({
-                "access_token": "773360a6d49961d35e6f8df4ac78293d397f5666"
-            },
-            async function (err, payload, limits) {
-                let data = [];
-                let runs = [];
-                let rides = [];
-                if (!err) {
-                    for (let i = 0; i < payload.length; i++) {
-                        const activity = payload[i];
-                        let date = new Date();
-                        date.setMonth(date.getMonth() - 3)
+        let results = await Instance.listActivities()
+        res.json({results});
+        // strava.athlete.listActivities({
+        //         "access_token": "773360a6d49961d35e6f8df4ac78293d397f5666"
+        //     },
+        //     async function (err, payload, limits) {
+        //         let data = [];
+        //         let runs = [];
+        //         let rides = [];
+        //         if (!err) {
+        //             for (let i = 0; i < payload.length; i++) {
+        //                 const activity = payload[i];
+        //                 let date = new Date();
+        //                 date.setMonth(date.getMonth() - 3)
 
-                        if (moment(activity.start_date).utc() > moment(date).utc()) {
-                            data.push(
-                                activity
-                            );
-                            if(activity.type === 'Run'){
-                                runs.push(
-                                    activity
-                                );  
-                            }else if(activity.type === 'Ride'){
-                                runs.push(
-                                    activity
-                                );
-                            }   
-                        }
-                    }
+        //                 if (moment(activity.start_date).utc() > moment(date).utc()) {
+        //                     data.push(
+        //                         activity
+        //                     );
+        //                     if(activity.type === 'Run'){
+        //                         runs.push(
+        //                             activity
+        //                         );  
+        //                     }else if(activity.type === 'Ride'){
+        //                         runs.push(
+        //                             activity
+        //                         );
+        //                     }   
+        //                 }
+        //             }
 
-                    let obj = {
-                        data,
-                        runs,
-                        rides
-                    }
+        //             let obj = {
+        //                 data,
+        //                 runs,
+        //                 rides
+        //             }
 
-                    console.log(obj)
-                    res.render('summaries', obj)
-                } else {
-                    console.log(err);
-                }
-            });
+        //             console.log(obj)
+        //             res.render('summaries', obj)
+        //         } else {
+        //             console.log(err);
+        //         }
+        //     });
+
         
-    };
+    }
 
 
     return {
         indexGet,
         indexPost,
         profile,
-        listActivities,
+        listActivities
     };
 }

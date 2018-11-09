@@ -8,8 +8,6 @@ const Routes = require('./routes/routes');
 
 const session = require('express-session');
 
-
-
 const Pool = pg.Pool;
 let useSSL = false;
 let local = process.env.LOCAL || false;
@@ -21,9 +19,6 @@ const pool = new Pool({
     connectionString,
     ssl: useSSL
 });
-
-
-
 const Instance = FactoryFunction(pool);
 const appRoutes = Routes(Instance);
 
@@ -63,13 +58,8 @@ app.use(errorHandler);
 app.get('/', appRoutes.indexGet); 
 app.post("/", appRoutes.indexPost);  // Connect to the users Strava profile via the Strava API and retrieve the activity history for last 3 months or since inception if less
 app.get('/profile', appRoutes.profile); 
-
-
 app.get('/list_activities', appRoutes.listActivities);
 
-
-
-// app.get('/get',apiRoutes.get)
 
 const PORT = process.env.PORT || 3011;
 app.listen(PORT, function () {

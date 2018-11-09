@@ -1,22 +1,25 @@
 module.exports = function (pool) {
 
+    async function listActivities(){
+        let results = await pool.query('select * from activities;');
+        return results.rows;
+    }
+    
     async function cyclingSummary() {
         // For cycling, display:
-        //     Average number of rides per week
+        // Average number of rides per week
         // Average distance per ride
         // Average speed per ride
-        // Fastest average speed
-        // for a ride
+        // Fastest average speed for a ride
         // Longest ride distance
         // Longest ride duration
     }
     async function runSummary() {
         // For running, display:
-        //     Average number of runs per week
+        // Average number of runs per week
         // Average distance per run
         // Average pace per run
-        // Fastest average pace
-        // for a run
+        // Fastest average pace for a run
         // Longest run distance
         // Longest run duration
     }
@@ -43,6 +46,7 @@ module.exports = function (pool) {
 
     // Any assumptions you make, note them in the code or in a response email
     return {
+        listActivities,
         runSummary,
         cyclingSummary,
         saveSummary,
