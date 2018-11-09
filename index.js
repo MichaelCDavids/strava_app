@@ -1,13 +1,15 @@
-'use strict';
 const express = require('express');
-const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
-const session = require('express-session');
+const exphbs = require('express-handlebars');
 const flash = require('express-flash');
-const FactoryFunction = require('./services/strava-app-factory');
-const APIroutes = require('./routes/strava-app-routes');
-const app = express();
 const pg = require("pg");
+const FactoryFunction = require('./services/factory');
+const Routes = require('./routes/routes');
+
+const session = require('express-session');
+
+
+
 const Pool = pg.Pool;
 let useSSL = false;
 let local = process.env.LOCAL || false;
@@ -19,13 +21,21 @@ const pool = new Pool({
     connectionString,
     ssl: useSSL
 });
+
+
+
 const Instance = FactoryFunction(pool);
-const apiRoutes = APIroutes(Instance);
+const appRoutes = Routes(Instance);
+
+const app = express();
+
 app.use(session({
     secret: 'just do it',
     resave: false,
     saveUninitialized: true
 }));
+
+// Middlewares
 app.use(flash());
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
@@ -45,10 +55,17 @@ function errorHandler(err, req, res, next) {
 }
 app.use(errorHandler);
 
-app.get('/', apiRoutes.indexGet);
-app.post("/", apiRoutes.indexPost);
-app.get('/profile', apiRoutes.profile);
-app.get('/list_activities', apiRoutes.listActivities);
+// Create a mobile application or web site that will:
+// Only deal with cycling and running activities
+
+
+// Routes
+app.get('/', appRoutes.indexGet); 
+app.post("/", appRoutes.indexPost);  // Connect to the users Strava profile via the Strava API and retrieve the activity history for last 3 months or since inception if less
+app.get('/profile', appRoutes.profile); 
+
+
+app.get('/list_activities', appRoutes.listActivities);
 
 
 
@@ -56,6 +73,7 @@ app.get('/list_activities', apiRoutes.listActivities);
 
 const PORT = process.env.PORT || 3011;
 app.listen(PORT, function () {
-    console.log('Strava App started and running listening on port:', PORT);
+    console.log('App started and listening on port:', PORT);
 });
-module.exports = app;
+
+// module.exports = app;
