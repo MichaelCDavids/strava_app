@@ -59,6 +59,7 @@ app.get('/', appRoutes.indexGet);
 app.post('/', appRoutes.indexPost);
 app.get('/profile', appRoutes.profile); 
 app.get('/list_activities', appRoutes.listActivities);
+app.post('/list_activities', appRoutes.saveSummaries)
 
 const PORT = process.env.PORT || 3011;
 app.listen(PORT, function () {

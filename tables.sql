@@ -1,17 +1,13 @@
-drop table if exists runs, rides;
+drop table if exists summaries;
 
-create table runs(
-    id int primary key not null,
-    activity_name text not null,
-    duration int not null,
-    pace timestamp not null,
-    distance decimal
-);
-
-create table rides(
-    id int primary key not null,
-    activity_name text not null,
-    duration  int not null,
-    pace decimal not null,
-    distance decimal
+create table summaries(
+    id  serial not null primary key,
+    activity_type text not null,
+    effective_date text not null,
+    times_per_week decimal not null,
+    average_distance decimal not null,
+    average_pace_per_activity decimal not null,
+    fastest_average decimal not null,
+    longest_distance decimal not null,
+    longest_duration decimal not null
 );

@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <h1>Your Activity</h1>
+    <h1>Your Running Activity</h1>
     <table>
         <tr>
             <th>Runs</th>
@@ -18,7 +18,7 @@
             <th>Longest Duration</th>
         </tr>
         <tr>
-            <td>{{runSummary.runsPerWeek}}</td>
+            <td id="runsPerWeek">{{runSummary.runsPerWeek}}</td>
             <td>{{runSummary.averageDistance}}</td>
             <td>{{runSummary.averagePacePerRun}}</td>
             <td>{{runSummary.fastestAverage}}</td>
@@ -26,6 +26,30 @@
             <td>{{runSummary.longestDuration}}</td>
         </tr>
     </table>
+
+    <h1>Your Cycling Activity</h1>
+    <table>
+        <tr>
+            <th>Rides</th>
+            <th>Distance</th>
+            <th>Pace</th>
+            <th>Fastest Pace</th>
+            <th>Longest distance</th>
+            <th>Longest Duration</th>
+        </tr>
+        <tr>
+            <td>{{rideSummary.ridesPerWeek}}</td>
+            <td>{{rideSummary.averageDistance}}</td>
+            <td>{{rideSummary.averagePacePerRide}}</td>
+            <td>{{rideSummary.fastestAverage}}</td>
+            <td>{{rideSummary.longestDistance}}</td>
+            <td>{{rideSummary.longestDuration}}</td>
+        </tr>
+    </table>
+
+    <form action="/list_activities" method="post">
+        <button type="submit">Save Summary</button>
+    </form>
 </body>
 
 </html>

@@ -2,10 +2,8 @@ const client = require('../client/client');
 const axios = require('axios');
 const strava = require('strava-v3');
 const factory = require('../services/factory');
-
-const instance = factory()
-
-module.exports = function () {
+    
+module.exports = function (instance) {
     function indexGet(req, res) {
         res.render('index');
     };
@@ -24,14 +22,12 @@ module.exports = function () {
             data: await results.data,
         });
     };
-
-
     async function listActivities(req, res) {
         strava.athlete.listActivities({
                 "access_token": "773360a6d49961d35e6f8df4ac78293d397f5666"
             },
             async function (err, payload, limits) {
-               let obj = instance.listActivities(err, payload)
+               let obj = await instance.listActivities(err, payload)
                let runSummary = await instance.runSummary(obj.runs)
                let rideSummary = await instance.rideSummary(obj.rides)
                obj = {
@@ -40,8 +36,21 @@ module.exports = function () {
                }
                res.render('summaries', obj) 
             });
+    }
 
-
+    async function saveSummaries(req, res){
+        let date = new Date();
+        strava.athlete.listActivities({
+            "access_token": "773360a6d49961d35e6f8df4ac78293d397f5666"
+        },
+        async function (err, payload, limits) {
+           let obj = await instance.listActivities(err, payload)
+           let runSummary = await instance.runSummary(obj.runs)
+           let rideSummary = await instance.rideSummary(obj.rides)
+           let result = await instance.saveSummary(runSummary, rideSummary, date)
+           console.log(result);
+            
+        }); 
     }
 
 
@@ -49,6 +58,7 @@ module.exports = function () {
         indexGet,
         indexPost,
         profile,
-        listActivities
+        listActivities,
+        saveSummaries
     };
 }
