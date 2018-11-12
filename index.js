@@ -1,12 +1,14 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const session = require('express-session');
 const exphbs = require('express-handlebars');
 const flash = require('express-flash');
+
+const bodyParser = require('body-parser');
+
 const pg = require("pg");
+
 const FactoryFunction = require('./services/factory');
 const Routes = require('./routes/routes');
-
-const session = require('express-session');
 
 const Pool = pg.Pool;
 let useSSL = false;
@@ -19,23 +21,25 @@ const pool = new Pool({
     connectionString,
     ssl: useSSL
 });
+
 const Instance = FactoryFunction(pool);
 const appRoutes = Routes(Instance);
 
 const app = express();
 
+
+
+// Middlewares
+app.engine('handlebars', exphbs({
+    defaultLayout: 'main'
+}));
+app.set('view engine', 'handlebars');
 app.use(session({
     secret: 'just do it',
     resave: false,
     saveUninitialized: true
 }));
-
-// Middlewares
 app.use(flash());
-app.engine('handlebars', exphbs({
-    defaultLayout: 'main'
-}));
-app.set('view engine', 'handlebars');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({
     extended: false
@@ -50,20 +54,13 @@ function errorHandler(err, req, res, next) {
 }
 app.use(errorHandler);
 
-// Create a mobile application or web site that will:
-// Only deal with cycling and running activities
-
-
 // Routes
 app.get('/', appRoutes.indexGet); 
-app.post("/", appRoutes.indexPost);  // Connect to the users Strava profile via the Strava API and retrieve the activity history for last 3 months or since inception if less
+app.post('/', appRoutes.indexPost);
 app.get('/profile', appRoutes.profile); 
 app.get('/list_activities', appRoutes.listActivities);
-
 
 const PORT = process.env.PORT || 3011;
 app.listen(PORT, function () {
     console.log('App started and listening on port:', PORT);
 });
-
-// module.exports = app;
