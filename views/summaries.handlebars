@@ -1,0 +1,50 @@
+<h2>Running Activity Summary</h2>
+<table>
+    <tr>
+        <th>Runs</th>
+        <th>Distance</th>
+        <th>Pace</th>
+        <th>Fastest Pace</th>
+        <th>Longest distance</th>
+        <th>Longest Duration</th>
+    </tr>
+    <tr>
+        <td>{{runSummary.runsPerWeek}}</td>
+        <td>{{runSummary.averageDistance}}</td>
+        <td>{{runSummary.averagePacePerRun}}</td>
+        <td>{{runSummary.fastestAverage}}</td>
+        <td>{{runSummary.longestDistance}}</td>
+        <td>{{runSummary.longestDuration}}</td>
+    </tr>
+</table>
+
+<h2>Cycling Activity Summary</h2>
+<table>
+    <tr>
+        <th>Rides</th>
+        <th>Distance</th>
+        <th>Pace</th>
+        <th>Fastest Pace</th>
+        <th>Longest distance</th>
+        <th>Longest Duration</th>
+    </tr>
+    <tr>
+        <td>{{rideSummary.ridesPerWeek}}</td>
+        <td>{{rideSummary.averageDistance}}</td>
+        <td>{{rideSummary.averagePacePerRide}}</td>
+        <td>{{rideSummary.fastestAverage}}</td>
+        <td>{{rideSummary.longestDistance}}</td>
+        <td>{{rideSummary.longestDuration}}</td>
+    </tr>
+</table>
+{{#if messages.info}}
+<div class="entry">
+    <p>{{messages.info}}</p>
+</div>
+{{/if}}
+<form action="/summaries" method="get">
+    <button type="submit">View Saved Summaries</button>
+</form>
+<form action="/list_activities" method="post">
+    <button type="submit">Save Summary</button>
+</form>

@@ -18,9 +18,8 @@
     "express-flash": "0.0.2",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
-    "mysql": "^2.5.3",
+    "moment": "^2.22.2",
     "pg": "^7.4.3",
-    "strava": "0.0.2",
     "strava-v3": "^1.14.0"
   },
   "devDependencies": {
