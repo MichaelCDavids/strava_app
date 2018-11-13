@@ -1,18 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Athlete</title>
-</head>
-<body>
-    <h3>Hello {{data.athlete.firstname}} {{data.athlete.lastname}} </h3>
-    {{!-- <div>{{data.access_token}}</div> --}}
-    <form action="/list_activities" method="get">
-        <button type="submit">View</button>
-    </form>
-</body>
-
-</html>
+<h3>Hello {{data.athlete.firstname}} {{data.athlete.lastname}} </h3>
+<div>{{data.access_token}}</div>
+<form action="/list_activities" method="get">
+    <button type="submit">View Summaries</button>
+</form>
