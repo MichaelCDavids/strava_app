@@ -2,6 +2,7 @@ drop table if exists summaries;
 
 create table summaries(
     id  serial not null primary key,
+    athlete_id int not null,
     activity_type text not null,
     effective_date text not null,
     times_per_week decimal not null,

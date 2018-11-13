@@ -1,3 +1,4 @@
+{{#each data}}
 <h2>Running Activity Summary</h2>
 <table>
     <tr>
@@ -37,14 +38,4 @@
         <td>{{rideSummary.longestDuration}}</td>
     </tr>
 </table>
-{{#if messages.info}}
-<div class="entry">
-    <p>{{messages.info}}</p>
-</div>
-{{/if}}
-<form action="/summaries" method="get">
-    <button type="submit">View Saved Summaries</button>
-</form>
-<form action="/list_activities" method="post">
-    <button type="submit">Save Summary</button>
-</form>
+{{/each}}

@@ -16,7 +16,7 @@ let local = process.env.LOCAL || false;
 if (process.env.DATABASE_URL && !local) {
     useSSL = true;
 }
-const connectionString = process.env.DATABASE_URL || 'postgresql://coder:pg123@localhost:5432/strava_app_database';
+const connectionString = process.env.DATABASE_URL || 'postgresql://muji:pg123@localhost:5432/strava_app_database';
 const pool = new Pool({
     connectionString,
     ssl: useSSL
@@ -59,7 +59,8 @@ app.get('/', appRoutes.indexGet);
 app.post('/', appRoutes.indexPost);
 app.get('/profile', appRoutes.profile); 
 app.get('/list_activities', appRoutes.listActivities);
-app.post('/list_activities', appRoutes.saveSummaries)
+app.post('/list_activities', appRoutes.saveSummaries);
+app.get('/summaries', appRoutes.getSavedSummaries);
 
 const PORT = process.env.PORT || 3011;
 app.listen(PORT, function () {
