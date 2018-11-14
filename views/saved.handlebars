@@ -1,8 +1,16 @@
-{{#each data}}
- <table>
+<div class="container">
+    <div class="row">
+         <div class="card center green white-text col s12">
+            <div style="height:60px;">
+                <h4>Previously Saved Summaries</h4>
+            </div>
+        </div>
+    </div>
+    {{#each data}}
+    <table>
         <tr>
             <th>Activity Type</th>
-            <td>{{data.activity_type}}</td>
+            <td>{{this.activity_type}}</td>
         </tr>
         <tr>
             <th>Average Runs Per Week</th>
@@ -28,6 +36,10 @@
             <th>Longest Duration For a Run</th>
             <td>{{this.longest_duration}} minutes</td>
         </tr>
-        <p>this summary was saved {{this.effective_date}} for athlete: {{this.athlete_id}}</p>
     </table>
-{{/each}}
+    <p style="font-size:10px;">this summary was saved {{this.effective_date}} for athlete: {{this.athlete_id}}</p>
+    {{/each}}
+    <form action="/" method="post">
+        <button type="submit" class="waves-effect waves-light btn center green col s2 offset-s5">Profile</button>
+    </form>
+</div>
