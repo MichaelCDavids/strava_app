@@ -1,41 +1,33 @@
 {{#each data}}
-<h2>Running Activity Summary</h2>
-<table>
-    <tr>
-        <th>Runs</th>
-        <th>Distance</th>
-        <th>Pace</th>
-        <th>Fastest Pace</th>
-        <th>Longest distance</th>
-        <th>Longest Duration</th>
-    </tr>
-    <tr>
-        <td>{{runSummary.runsPerWeek}}</td>
-        <td>{{runSummary.averageDistance}}</td>
-        <td>{{runSummary.averagePacePerRun}}</td>
-        <td>{{runSummary.fastestAverage}}</td>
-        <td>{{runSummary.longestDistance}}</td>
-        <td>{{runSummary.longestDuration}}</td>
-    </tr>
-</table>
-
-<h2>Cycling Activity Summary</h2>
-<table>
-    <tr>
-        <th>Rides</th>
-        <th>Distance</th>
-        <th>Pace</th>
-        <th>Fastest Pace</th>
-        <th>Longest distance</th>
-        <th>Longest Duration</th>
-    </tr>
-    <tr>
-        <td>{{rideSummary.ridesPerWeek}}</td>
-        <td>{{rideSummary.averageDistance}}</td>
-        <td>{{rideSummary.averagePacePerRide}}</td>
-        <td>{{rideSummary.fastestAverage}}</td>
-        <td>{{rideSummary.longestDistance}}</td>
-        <td>{{rideSummary.longestDuration}}</td>
-    </tr>
-</table>
+ <table>
+        <tr>
+            <th>Activity Type</th>
+            <td>{{data.activity_type}}</td>
+        </tr>
+        <tr>
+            <th>Average Runs Per Week</th>
+            <td>{{this.times_per_week}} runs</td>
+        </tr>
+        <tr>
+            <th>Average Distance Per Run</th>
+            <td>{{this.average_distance}} meters</td>
+        </tr>
+        <tr>
+            <th>Average Pace Per Run</th>
+            <td>{{this.average_pace_per_activity}} minutes per kilometer</td>
+        </tr>
+        <tr>
+            <th>Fastest Average Pace For a Run</th>
+            <td>{{this.fastest_average}} minutes per kilometer</td>
+        </tr>
+        <tr>
+            <th>Longest Distance For a Run</th>
+            <td>{{this.longest_distance}} kilometers</td>
+        </tr>
+        <tr>
+            <th>Longest Duration For a Run</th>
+            <td>{{this.longest_duration}} minutes</td>
+        </tr>
+        <p>this summary was saved {{this.effective_date}} for athlete: {{this.athlete_id}}</p>
+    </table>
 {{/each}}
