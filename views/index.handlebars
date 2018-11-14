@@ -1,12 +1,23 @@
-<head>
-    <title>Index</title>
-</head>
-<h3>Connect to your strava API</h3>
-<form action="/" method="POST">
-    <p>Client ID:</p>
-    <input type="text" name="client_id" id="client_id">
-    <p>Client Secret:</p>
-    <input type="password" name="client_secret" id="client_secret">
-    </br>
-    <button type="submit" name="connect" id="connect">Connect</button>
-</form>
+<div class="container">
+    <div class="row">
+        <div class="card center green white-text col s8 offset-s2">
+            <div style="height:60px;">
+                <h4>Login to start using Node-Api</h4>
+            </div>
+        </div>
+        <form action="/" method="POST" class="col s8 offset-s2">
+            <div class="row">
+
+                <div class="input-field col s6 offset-s3">
+                    <input placeholder="your client id for strava api" id="client_id" type="text" class="validate">
+                    <label for="client_id">Client ID</label>
+                </div>
+                <div class="input-field col s6 offset-s3">
+                    <input placeholder="your client secret for strava api" id="client_secret" type="password" class="validate">
+                    <label for="client_secret">Client Secret</label>
+                </div>
+                <button type="submit" name="connect" id="connect" class="waves-effect waves-light btn center green col s2 offset-s5">Connect</button>
+            </div>
+        </form>
+    </div>
+</div>

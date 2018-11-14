@@ -1,5 +1,38 @@
-<h3>Hello {{data.athlete.firstname}} {{data.athlete.lastname}} </h3>
-<div>{{data.access_token}}</div>
-<form action="/list_activities" method="get">
-    <button type="submit">View Summaries</button>
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col s8 offset-s2">
+            <h4>Hello, Welcome to our Strava activity visualiser app!</h4>
+            <hr>
+            <div style="height:30px;"></div>
+            <table>
+                <tr>
+                    <h5>Athlete Details</h5>
+                </tr>
+                <tr>
+                    <th>athlete ID: </th>
+                    <td>{{data.athlete.id}}</td>
+                </tr>
+                <tr>
+                    <th>Firstname: </th>
+                    <td>{{data.athlete.firstname}}</td>
+                </tr>
+                <tr>
+                    <th>Lastname: </th>
+                    <td>{{data.athlete.lastname}}</td>
+                </tr>
+                <tr>
+                    <th>City: </th>
+                    <td>{{data.athlete.city}}</td>
+                </tr>
+            </table>
+            <div style="height:40px;"></div>
+            <p>Click below to view your athlete activities for the past three months</p>
+            <div style="height:40px;"></div>
+            <div class="col s12">
+                <form action="/list_activities" method="get">
+                    <button type="submit" class="waves-effect waves-light btn center green col s2 offset-s5">View</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,50 +1,74 @@
-<h2>Running Activity Summary</h2>
-<table>
-    <tr>
-        <th>Runs</th>
-        <th>Distance</th>
-        <th>Pace</th>
-        <th>Fastest Pace</th>
-        <th>Longest distance</th>
-        <th>Longest Duration</th>
-    </tr>
-    <tr>
-        <td>{{runSummary.runsPerWeek}}</td>
-        <td>{{runSummary.averageDistance}}</td>
-        <td>{{runSummary.averagePacePerRun}}</td>
-        <td>{{runSummary.fastestAverage}}</td>
-        <td>{{runSummary.longestDistance}}</td>
-        <td>{{runSummary.longestDuration}}</td>
-    </tr>
-</table>
-
-<h2>Cycling Activity Summary</h2>
-<table>
-    <tr>
-        <th>Rides</th>
-        <th>Distance</th>
-        <th>Pace</th>
-        <th>Fastest Pace</th>
-        <th>Longest distance</th>
-        <th>Longest Duration</th>
-    </tr>
-    <tr>
-        <td>{{rideSummary.ridesPerWeek}}</td>
-        <td>{{rideSummary.averageDistance}}</td>
-        <td>{{rideSummary.averagePacePerRide}}</td>
-        <td>{{rideSummary.fastestAverage}}</td>
-        <td>{{rideSummary.longestDistance}}</td>
-        <td>{{rideSummary.longestDuration}}</td>
-    </tr>
-</table>
-{{#if messages.info}}
-<div class="entry">
-    <p>{{messages.info}}</p>
+<div class="container">
+    {{#if messages.info}}
+    <div class="entry">
+        <p>{{messages.info}}</p>
+    </div>
+    {{/if}}
+    <div style="height:30px;"></div>
+    <table>
+        <tr>
+            <h5>Running Activity Summary</h5>
+        </tr>
+        <tr>
+            <th>Average Runs Per Week</th>
+            <td>{{runSummary.runsPerWeek}} runs</td>
+        </tr>
+        <tr>
+            <th>Average Distance Per Run</th>
+            <td>{{runSummary.averageDistance}} meters</td>
+        </tr>
+        <tr>
+            <th>Average Pace Per Run</th>
+            <td>{{runSummary.averagePacePerRun}} minutes per kilometer</td>
+        </tr>
+        <tr>
+            <th>Fastest Average Pace For a Run</th>
+            <td>{{runSummary.fastestAverage}} minutes per kilometer</td>
+        </tr>
+        <tr>
+            <th>Longest Distance For a Run</th>
+            <td>{{runSummary.longestDistance}} kilometers</td>
+        </tr>
+        <tr>
+            <th>Longest Duration For a Run</th>
+            <td>{{runSummary.longestDuration}} minutes</td>
+        </tr>
+    </table>
+    <div style="height:30px;"></div>
+    <table>
+        <tr>
+            <h5>Cycling Activity Summary</h5>
+        </tr>
+        <tr>
+            <th>Average Rides Per Week</th>
+            <td>{{rideSummary.ridesPerWeek}} rides</td>
+        </tr>
+        <tr>
+            <th>Average Distance Per Run</th>
+            <td>{{rideSummary.averageDistance}} meters</td>
+        </tr>
+        <tr>
+            <th>Average Pace Per Run</th>
+            <td>{{rideSummary.averagePacePerRide}} minutes per kilometer</td>
+        </tr>
+        <tr>
+            <th>Fastest Average Pace For a Run</th>
+            <td>{{rideSummary.fastestAverage}} minutes per kilometer</td>
+        </tr>
+        <tr>
+            <th>Longest Distance For a Ride</th>
+            <td>{{rideSummary.longestDistance}} km</td>
+        </tr>
+        <tr>
+            <th>Longest Duration For a Run</th>
+            <td>{{rideSummary.longestDuration}} minutes</td>
+        </tr>
+    </table>
+    <div style="height:40px;"></div>
+    <form action="/list_activities" method="post">
+        <button type="submit" class="waves-effect waves-light btn center green col s2 offset-s5">Save Summary</button>
+    </form>
+    <form action="/summaries" method="get">
+        <button type="submit" class="waves-effect waves-light btn center green col s2 offset-s5">Previous Summaries</button>
+    </form>
 </div>
-{{/if}}
-<form action="/summaries" method="get">
-    <button type="submit">View Saved Summaries</button>
-</form>
-<form action="/list_activities" method="post">
-    <button type="submit">Save Summary</button>
-</form>
