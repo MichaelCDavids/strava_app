@@ -56,8 +56,10 @@ module.exports = function (instance) {
             });
     };
     async function getSavedSummaries(req, res) {
-        let data = await instance.getSavedSummaries(athleteID);        
-        res.render('saved', {data});
+        let data = await instance.getSavedSummaries(athleteID);
+        res.render('saved', {
+            data
+        });
     };
     return {
         indexGet,

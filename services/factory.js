@@ -52,7 +52,7 @@ module.exports = function (pool) {
             let fastestAverage = fastestAveragePace(runs);
             let longestDistance = getLongestDistance(runs);
             let longestDuration = getLongestDuration(runs);
-            let runsPerWeek = Math.round(numberOfRuns / difference)    
+            let runsPerWeek = Math.round(numberOfRuns / difference)
             let data = {
                 type: 'Run',
                 runsPerWeek,
@@ -93,7 +93,7 @@ module.exports = function (pool) {
             let fastestAverage = fastestAveragePace(rides);
             let longestDistance = getLongestDistance(rides);
             let longestDuration = getLongestDuration(rides);
-            let ridesPerWeek = Math.round(numberOfRides / difference);            
+            let ridesPerWeek = Math.round(numberOfRides / difference);
             let data = {
                 type: 'Ride',
                 ridesPerWeek,
@@ -131,7 +131,7 @@ module.exports = function (pool) {
             distance += i.distance;
         }
         let average = distance / numberOfRuns;
-        let averageDistanceKilometeres = average/1000;
+        let averageDistanceKilometeres = average / 1000;
         return averageDistanceKilometeres.toFixed(1);
     };
 
@@ -194,7 +194,7 @@ module.exports = function (pool) {
 
     };
     async function getSavedSummaries(athleteID) {
-        let data = await pool.query('select * from summaries where athlete_id=$1',[athleteID]);
+        let data = await pool.query('select * from summaries where athlete_id=$1', [athleteID]);
         return data.rows
     };
     return {
