@@ -8,7 +8,7 @@ module.exports = function (instance) {
         res.render('index');
     };
     async function indexPost(req, res) {
-        let redirect_url = `http://localhost:3011/profile`
+        let redirect_url = `http://mikes-node-api.herokuapp.com/profile`
         let url = `https://www.strava.com/oauth/authorize?client_id=${client.client_id}&redirect_uri=${redirect_url}&response_type=code&scope=view_private`;
         res.redirect(url);
     };
