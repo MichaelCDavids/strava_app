@@ -36,38 +36,49 @@ module.exports = function (pool) {
     }
 
     async function runSummary(runs) {
-        let numberOfRuns = runs.length;
-
-        let yearOne = moment(runs[0].start_date_local).get('year');
-        let monthOne = moment(runs[0].start_date_local).get('month') + 1;
-        let dayOne = moment(runs[0].start_date_local).get('date');
-        let dateOne = `${monthOne}-${dayOne}-${yearOne}`;
-        let yearTwo = moment(runs[runs.length - 1].start_date_local).get('year');
-        let monthTwo = moment(runs[runs.length - 1].start_date_local).get('month') + 1;
-        let dayTwo = moment(runs[runs.length - 1].start_date_local).get('date');
-        let dateTwo = `${monthTwo}-${dayTwo}-${yearTwo}`
-
-        let difference = getWeekDifference(dateOne, dateTwo);
-        let averageDistance = getAverageDistance(runs, numberOfRuns);
-        let averagePacePerRun = averagePace(runs);
-        let fastestAverage = fastestAveragePace(runs);
-        let longestDistance = getLongestDistance(runs);
-        let longestDuration = getLongestDuration(runs);
-        let data = {
-            type: 'Run',
-            runsPerWeek: numberOfRuns / difference,
-            averageDistance,
-            averagePacePerRun,
-            fastestAverage,
-            longestDistance,
-            longestDuration
-        };
-        return data;
+        if (runs.length > 0) {
+            let numberOfRuns = runs.length;
+            let yearOne = moment(runs[0].start_date_local).get('year');
+            let monthOne = moment(runs[0].start_date_local).get('month') + 1;
+            let dayOne = moment(runs[0].start_date_local).get('date');
+            let dateOne = `${monthOne}-${dayOne}-${yearOne}`;
+            let yearTwo = moment(runs[runs.length - 1].start_date_local).get('year');
+            let monthTwo = moment(runs[runs.length - 1].start_date_local).get('month') + 1;
+            let dayTwo = moment(runs[runs.length - 1].start_date_local).get('date');
+            let dateTwo = `${monthTwo}-${dayTwo}-${yearTwo}`
+            let difference = getWeekDifference(dateOne, dateTwo);
+            let averageDistance = getAverageDistance(runs, numberOfRuns);
+            let averagePacePerRun = averagePace(runs);
+            let fastestAverage = fastestAveragePace(runs);
+            let longestDistance = getLongestDistance(runs);
+            let longestDuration = getLongestDuration(runs);
+            let runsPerWeek = Math.round(numberOfRuns / difference)    
+            let data = {
+                type: 'Run',
+                runsPerWeek,
+                averageDistance,
+                averagePacePerRun,
+                fastestAverage,
+                longestDistance,
+                longestDuration
+            };
+            return data;
+        } else {
+            let data = {
+                type: 'Run',
+                runsPerWeek: 0,
+                averageDistance: 0,
+                averagePacePerRun: 0,
+                fastestAverage: 0,
+                longestDistance: 0,
+                longestDuration: 0
+            };
+            return data;
+        }
     };
     async function rideSummary(rides) {
         if (rides.length > 0) {
             let numberOfRides = rides.length;
-
             let yearOne = moment(rides[0].start_date_local).get('year');
             let monthOne = moment(rides[0].start_date_local).get('month') + 1;
             let dayOne = moment(rides[0].start_date_local).get('date');
@@ -76,16 +87,16 @@ module.exports = function (pool) {
             let monthTwo = moment(rides[rides.length - 1].start_date_local).get('month') + 1;
             let dayTwo = moment(rides[rides.length - 1].start_date_local).get('date');
             let dateTwo = `${monthTwo}-${dayTwo}-${yearTwo}`
-
             let difference = getWeekDifference(dateOne, dateTwo);
             let averageDistance = getAverageDistance(rides, numberOfRides);
             let averagePacePerRide = averagePace(rides);
             let fastestAverage = fastestAveragePace(rides);
             let longestDistance = getLongestDistance(rides);
             let longestDuration = getLongestDuration(rides);
+            let ridesPerWeek = Math.round(numberOfRides / difference);            
             let data = {
                 type: 'Ride',
-                runsPerWeek: numberOfRuns / difference,
+                ridesPerWeek,
                 averageDistance,
                 averagePacePerRide,
                 fastestAverage,
@@ -105,14 +116,6 @@ module.exports = function (pool) {
             };
             return data;
         }
-        console.log(rides);
-        // For cycling, display:
-        // Average number of rides per week
-        // Average distance per ride
-        // Average speed per ride
-        // Fastest average speed for a ride
-        // Longest ride distance
-        // Longest ride duration
     };
 
     function getWeekDifference(dateOne, dateTwo) {
@@ -128,7 +131,8 @@ module.exports = function (pool) {
             distance += i.distance;
         }
         let average = distance / numberOfRuns;
-        return average.toFixed(2);
+        let averageDistanceKilometeres = average/1000;
+        return averageDistanceKilometeres.toFixed(1);
     };
 
     function averagePace(activity) {
@@ -189,8 +193,8 @@ module.exports = function (pool) {
         return 'your summaries was saved successfully!';
 
     };
-    async function getSavedSummaries() {
-        let data = await pool.query('select * from summaries');
+    async function getSavedSummaries(athleteID) {
+        let data = await pool.query('select * from summaries where athlete_id=$1',[athleteID]);
         return data.rows
     };
     return {

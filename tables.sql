@@ -5,7 +5,7 @@ create table summaries(
     athlete_id int not null,
     activity_type text not null,
     effective_date text not null,
-    times_per_week decimal not null,
+    times_per_week int not null,
     average_distance decimal not null,
     average_pace_per_activity decimal not null,
     fastest_average decimal not null,

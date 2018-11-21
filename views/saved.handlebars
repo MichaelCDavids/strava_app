@@ -1,45 +1,61 @@
-<div class="container">
-    <div class="row">
-         <div class="card center green white-text col s12">
-            <div style="height:60px;">
-                <h4>Previously Saved Summaries</h4>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>Saved Summaries</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="card center green white-text col s12">
+                <div style="height:auto;">
+                    <h4>Previously Saved Summaries</h4>
+                </div>
             </div>
         </div>
+        {{#each data}}
+        <table>
+            <tr>
+                <th>Activity Type</th>
+                <td>{{this.activity_type}}</td>
+            </tr>
+            <tr>
+                <th>Average Runs Per Week</th>
+                <td>{{this.times_per_week}} runs</td>
+            </tr>
+            <tr>
+                <th>Average Distance Per Run</th>
+                <td>{{this.average_distance}} meters</td>
+            </tr>
+            <tr>
+                <th>Average Pace Per Run</th>
+                <td>{{this.average_pace_per_activity}} minutes per kilometer</td>
+            </tr>
+            <tr>
+                <th>Fastest Average Pace For a Run</th>
+                <td>{{this.fastest_average}} minutes per kilometer</td>
+            </tr>
+            <tr>
+                <th>Longest Distance For a Run</th>
+                <td>{{this.longest_distance}} kilometers</td>
+            </tr>
+            <tr>
+                <th>Longest Duration For a Run</th>
+                <td>{{this.longest_duration}} minutes</td>
+            </tr>
+        </table>
+        <p style="font-size:12px;">this summary was saved {{this.effective_date}} for athlete: {{this.athlete_id}}</p>
+        {{/each}}
+        <form action="/" method="post" class="center">
+            <button type="submit" class="waves-effect waves-light btn center green">Profile</button>
+        </form>
     </div>
-    {{#each data}}
-    <table>
-        <tr>
-            <th>Activity Type</th>
-            <td>{{this.activity_type}}</td>
-        </tr>
-        <tr>
-            <th>Average Runs Per Week</th>
-            <td>{{this.times_per_week}} runs</td>
-        </tr>
-        <tr>
-            <th>Average Distance Per Run</th>
-            <td>{{this.average_distance}} meters</td>
-        </tr>
-        <tr>
-            <th>Average Pace Per Run</th>
-            <td>{{this.average_pace_per_activity}} minutes per kilometer</td>
-        </tr>
-        <tr>
-            <th>Fastest Average Pace For a Run</th>
-            <td>{{this.fastest_average}} minutes per kilometer</td>
-        </tr>
-        <tr>
-            <th>Longest Distance For a Run</th>
-            <td>{{this.longest_distance}} kilometers</td>
-        </tr>
-        <tr>
-            <th>Longest Duration For a Run</th>
-            <td>{{this.longest_duration}} minutes</td>
-        </tr>
-    </table>
-    <p style="font-size:10px;">this summary was saved {{this.effective_date}} for athlete: {{this.athlete_id}}</p>
-    {{/each}}
-    <form action="/" method="post">
-        <button type="submit" class="waves-effect waves-light btn center green col s2 offset-s5">Profile</button>
-    </form>
-</div>
+</body>
+
+</html>

@@ -1,81 +1,97 @@
-<div class="container">
-    <div class="row">
-         <div class="card center green white-text col-s12">
-            <div style="height:60px;">
-                <h4>Latest Summaries For Strava Activity </h4>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>Athlete Summaries</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="card center green white-text col s12">
+                <div style="height:auto;">
+                    <h4>Latest Activity Summary</h4>
+                </div>
             </div>
         </div>
+        {{#if messages.info}}
+        <div class="entry">
+            <p>{{messages.info}}</p>
+        </div>
+        {{/if}}
+        <div style="height:30px;"></div>
+        <table>
+            <tr>
+                <h5>Running Activity Summary</h5>
+            </tr>
+            <tr>
+                <th>Average Runs Per Week</th>
+                <td>{{runSummary.runsPerWeek}} run(s)</td>
+            </tr>
+            <tr>
+                <th>Average Distance Per Run</th>
+                <td>{{runSummary.averageDistance}} kilometers</td>
+            </tr>
+            <tr>
+                <th>Average Pace Per Run</th>
+                <td>{{runSummary.averagePacePerRun}} minutes per kilometer</td>
+            </tr>
+            <tr>
+                <th>Fastest Average Pace For a Run</th>
+                <td>{{runSummary.fastestAverage}} minutes per kilometer</td>
+            </tr>
+            <tr>
+                <th>Longest Distance For a Run</th>
+                <td>{{runSummary.longestDistance}} kilometers</td>
+            </tr>
+            <tr>
+                <th>Longest Duration For a Run</th>
+                <td>{{runSummary.longestDuration}} minutes</td>
+            </tr>
+        </table>
+        <div style="height:30px;"></div>
+        <table>
+            <tr>
+                <h5>Cycling Activity Summary</h5>
+            </tr>
+            <tr>
+                <th>Average Rides Per Week</th>
+                <td>{{rideSummary.ridesPerWeek}} ride(s)</td>
+            </tr>
+            <tr>
+                <th>Average Distance Per Run</th>
+                <td>{{rideSummary.averageDistance}} kilometers</td>
+            </tr>
+            <tr>
+                <th>Average Pace Per Run</th>
+                <td>{{rideSummary.averagePacePerRide}} minutes per kilometer</td>
+            </tr>
+            <tr>
+                <th>Fastest Average Pace For a Run</th>
+                <td>{{rideSummary.fastestAverage}} minutes per kilometer</td>
+            </tr>
+            <tr>
+                <th>Longest Distance For a Ride</th>
+                <td>{{rideSummary.longestDistance}} km</td>
+            </tr>
+            <tr>
+                <th>Longest Duration For a Run</th>
+                <td>{{rideSummary.longestDuration}} minutes</td>
+            </tr>
+        </table>
+        <div style="height:40px;"></div>
+        <form action="/list_activities" method="post" class="center">
+            <button type="submit" class="waves-effect waves-light btn center green">Save Summary</button>
+        </form>
+        <form action="/summaries" method="get" class="center">
+            <button type="submit" class="waves-effect waves-light btn center green">Previous Summaries</button>
+        </form>
     </div>
-    {{#if messages.info}}
-    <div class="entry">
-        <p>{{messages.info}}</p>
-    </div>
-    {{/if}}
-    <div style="height:30px;"></div>
-    <table>
-        <tr>
-            <h5>Running Activity Summary</h5>
-        </tr>
-        <tr>
-            <th>Average Runs Per Week</th>
-            <td>{{runSummary.runsPerWeek}} runs</td>
-        </tr>
-        <tr>
-            <th>Average Distance Per Run</th>
-            <td>{{runSummary.averageDistance}} meters</td>
-        </tr>
-        <tr>
-            <th>Average Pace Per Run</th>
-            <td>{{runSummary.averagePacePerRun}} minutes per kilometer</td>
-        </tr>
-        <tr>
-            <th>Fastest Average Pace For a Run</th>
-            <td>{{runSummary.fastestAverage}} minutes per kilometer</td>
-        </tr>
-        <tr>
-            <th>Longest Distance For a Run</th>
-            <td>{{runSummary.longestDistance}} kilometers</td>
-        </tr>
-        <tr>
-            <th>Longest Duration For a Run</th>
-            <td>{{runSummary.longestDuration}} minutes</td>
-        </tr>
-    </table>
-    <div style="height:30px;"></div>
-    <table>
-        <tr>
-            <h5>Cycling Activity Summary</h5>
-        </tr>
-        <tr>
-            <th>Average Rides Per Week</th>
-            <td>{{rideSummary.ridesPerWeek}} rides</td>
-        </tr>
-        <tr>
-            <th>Average Distance Per Run</th>
-            <td>{{rideSummary.averageDistance}} meters</td>
-        </tr>
-        <tr>
-            <th>Average Pace Per Run</th>
-            <td>{{rideSummary.averagePacePerRide}} minutes per kilometer</td>
-        </tr>
-        <tr>
-            <th>Fastest Average Pace For a Run</th>
-            <td>{{rideSummary.fastestAverage}} minutes per kilometer</td>
-        </tr>
-        <tr>
-            <th>Longest Distance For a Ride</th>
-            <td>{{rideSummary.longestDistance}} km</td>
-        </tr>
-        <tr>
-            <th>Longest Duration For a Run</th>
-            <td>{{rideSummary.longestDuration}} minutes</td>
-        </tr>
-    </table>
-    <div style="height:40px;"></div>
-    <form action="/list_activities" method="post">
-        <button type="submit" class="waves-effect waves-light btn center green col s2 offset-s5">Save Summary</button>
-    </form>
-    <form action="/summaries" method="get">
-        <button type="submit" class="waves-effect waves-light btn center green col s2 offset-s5">Previous Summaries</button>
-    </form>
-</div>
+</body>
+
+</html>
